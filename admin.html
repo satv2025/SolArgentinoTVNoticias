@@ -2,10 +2,10 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Panel de Administración - Sol Argentino TV Noticias</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/admin.css" />
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <header class="site-header container">
         <div class="header-inner">
             <div class="brand">
-                <img src="assets/img/logo.png" alt="Logo" class="logo">
+                <img src="assets/media/images/placeholder.png" alt="Logo" class="logo">
                 <span class="site-title">Panel Admin</span>
             </div>
             <div class="actions">
@@ -26,20 +26,27 @@
         <!-- Formulario para crear artículo -->
         <section class="articulo">
             <h2 class="titulo">Crear nuevo artículo</h2>
+
+            <!-- status -->
+            <div id="status" aria-live="polite" style="margin-bottom:0.75rem;color:#1f2937;"></div>
+
             <form id="form-articulo">
                 <label for="titulo">Título:</label>
                 <input type="text" id="titulo" name="titulo" required>
 
                 <label for="contenido">Contenido (HTML permitido):</label>
-                <textarea id="contenido" name="contenido" rows="5" required></textarea>
+                <textarea id="contenido" name="contenido" rows="6" required></textarea>
 
                 <label for="categoria">Categoría:</label>
                 <input type="text" id="categoria" name="categoria" placeholder="General" required>
 
-                <label for="imagen">Imagen (opcional):</label>
+                <label for="imageUrl">Imagen - URL (opcional, preferida):</label>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="https://ejemplo.com/imagen.jpg">
+
+                <label for="imagen">O subir imagen (opcional):</label>
                 <input type="file" id="imagen" name="imagen" accept="image/*">
 
-                <button type="submit" class="btn-outline">Crear artículo</button>
+                <button type="submit" class="btn-outline" style="margin-top:1rem;">Crear artículo</button>
             </form>
         </section>
 
