@@ -10,36 +10,48 @@
 </head>
 
 <body>
-    <header>
-        <h1>Panel de Administración</h1>
-        <button id="btn-logout">Cerrar sesión</button>
+    <!-- Header -->
+    <header class="site-header container">
+        <div class="header-inner">
+            <div class="brand">
+                <img src="assets/img/logo.png" alt="Logo" class="logo">
+                <span class="site-title">Panel Admin</span>
+            </div>
+            <div class="actions">
+                <button id="btn-logout" class="btn-outline">Cerrar sesión</button>
+            </div>
+        </div>
     </header>
 
-    <section>
-        <h2>Crear nuevo artículo</h2>
-        <form id="form-articulo">
-            <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required>
+    <main class="container">
+        <!-- Crear artículo -->
+        <section class="articulo">
+            <h2 class="titulo">Crear nuevo artículo</h2>
+            <form id="form-articulo">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
 
-            <label for="contenido">Contenido (HTML permitido):</label>
-            <textarea id="contenido" name="contenido" rows="5" required></textarea>
+                <label for="contenido">Contenido (HTML permitido):</label>
+                <textarea id="contenido" name="contenido" rows="5" required></textarea>
 
-            <label for="categoria">Categoría:</label>
-            <input type="text" id="categoria" name="categoria" placeholder="General" required>
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria" placeholder="General" required>
 
-            <label for="imagen">Imagen (opcional):</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*">
+                <label for="imagen">Imagen (opcional):</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*">
 
-            <button type="submit">Crear artículo</button>
-        </form>
-    </section>
+                <button type="submit" class="btn-outline">Crear artículo</button>
+            </form>
+        </section>
 
-    <section>
-        <h2>Lista de artículos</h2>
-        <div id="lista-articulos">
-            <!-- Los artículos se listarán aquí -->
-        </div>
-    </section>
+        <!-- Lista de artículos -->
+        <section class="articulo" style="margin-top:2rem;">
+            <h2 class="titulo">Lista de artículos</h2>
+            <div id="lista-articulos" class="article-layout">
+                <!-- Los artículos se listarán aquí dinámicamente -->
+            </div>
+        </section>
+    </main>
 
     <script type="module">
         import { crearArticulo, logout, initList } from './assets/js/admin.js';
@@ -56,7 +68,7 @@
             form.reset();
         });
 
-        // Botón logout
+        // Logout
         document.getElementById("btn-logout").addEventListener("click", logout);
 
         // Inicializar lista al cargar
