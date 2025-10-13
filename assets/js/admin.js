@@ -1,79 +1,88 @@
 // assets/js/admin.js
-import { auth, db, storage } from './firebaseConfig.js';
-import { collection, getDocs, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { supabase } from './supabaseConfig.js';
 
-// Verifica que haya usuario logueado
-onAuthStateChanged(auth, user => {
-    if (!user) {
-        window.location.href = "login.html";
+const form = document.getElementById("form-articulo");
+const listaArticulos = document.getElementById("lista-articulos");
+
+// Subir imagen a Supabase Storage
+async function subirImagen(file) {
+    if (!file) return null;
+    const filePath = `public/${Date.now()}-${file.name}`;
+
+    const { data, error } = await supabase.storage
+        .from('imagenes')
+        .upload(filePath, file, { cacheControl: '3600', upsert: true });
+
+    if (error) {
+        console.error("Error al subir imagen:", error);
+        return null;
     }
-});
 
-// Referencia a la colección
-const articulosCol = collection(db, "articulos");
-
-// Función para listar artículos en admin
-export async function initList() {
-    const listContainer = document.getElementById("lista-articulos");
-    if (!listContainer) return;
-
-    listContainer.innerHTML = "";
-    try {
-        const snapshot = await getDocs(articulosCol);
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            const fechaStr = data.fecha ? data.fecha.toDate().toLocaleDateString() : "Sin fecha"; // ✅ Manejo opcional
-            const item = document.createElement("div");
-            item.classList.add("articulo-item");
-            item.innerHTML = `
-                <h3>${data.titulo}</h3>
-                <p>${data.categoria} - ${fechaStr}</p>
-                <a href="articulos/index.html?id=${doc.id}" target="_blank">Ver</a>
-            `;
-            listContainer.appendChild(item);
-        });
-    } catch (error) {
-        console.error("Error al listar artículos:", error);
-    }
+    const { publicUrl } = supabase.storage.from('imagenes').getPublicUrl(data.path);
+    return publicUrl;
 }
 
-// Función para crear un artículo (opcional: sin fecha)
+// Crear artículo
 export async function crearArticulo(titulo, contenido, categoria, file) {
-    try {
-        let imagenURL = "";
+    const imagen_url = await subirImagen(file);
 
-        if (file) {
-            const storageRef = ref(storage, `imagenes/${file.name}`);
-            await uploadBytes(storageRef, file);
-            imagenURL = await getDownloadURL(storageRef);
-        }
+    const { data, error } = await supabase
+        .from('articulos')
+        .insert([{ titulo, contenido, categoria, imagen_url }]); // no necesita created_at manual
 
-        await addDoc(articulosCol, {
-            titulo,
-            contenido,
-            categoria,
-            imagenURL
-            // ✅ No agregamos fecha
-        });
-
-        alert("Artículo creado!");
-        initList(); // refresca lista
-    } catch (error) {
+    if (error) {
         console.error("Error al crear artículo:", error);
         alert("Error al crear artículo");
+        return;
     }
+
+    alert("Artículo creado!");
+    initList();
 }
 
-// Logout
-export function logout() {
-    signOut(auth)
-        .then(() => window.location.href = "login.html")
-        .catch(error => console.error("Error logout:", error));
+// Listar artículos en el admin
+export async function initList() {
+    if (!listaArticulos) return;
+    listaArticulos.innerHTML = '';
+
+    const { data, error } = await supabase
+        .from('articulos')
+        .select('*')
+        .order('id', { ascending: false }); // usamos id para ordenar
+
+    if (error) {
+        console.error("Error al listar artículos:", error);
+        listaArticulos.innerHTML = '<p>Error al cargar artículos.</p>';
+        return;
+    }
+
+    data.forEach(art => {
+        const item = document.createElement("div");
+        item.classList.add("articulo-item");
+        item.innerHTML = `
+            <h3>${art.titulo}</h3>
+            <p class="categoria">${art.categoria}</p>
+            ${art.imagen_url ? `<img src="${art.imagen_url}" alt="${art.titulo}" style="max-width:150px;border-radius:8px;">` : ''}
+            <div class="contenido">${art.contenido}</div>
+        `;
+        listaArticulos.appendChild(item);
+    });
 }
 
-// Ejecutar al cargar
+// Form submit
+if (form) {
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        const titulo = form.titulo.value;
+        const contenido = form.contenido.value;
+        const categoria = form.categoria.value;
+        const file = form.imagen.files[0];
+        crearArticulo(titulo, contenido, categoria, file);
+        form.reset();
+    });
+}
+
+// Inicializar lista al cargar
 document.addEventListener("DOMContentLoaded", () => {
     initList();
 });

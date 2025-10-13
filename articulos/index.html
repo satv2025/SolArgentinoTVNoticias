@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <!-- Header -->
     <header class="site-header container">
         <div class="header-inner">
             <div class="brand">
@@ -21,6 +22,7 @@
         </div>
     </header>
 
+    <!-- Main -->
     <main class="container">
         <div id="articulo-contenedor" class="article-layout">
             <!-- El artículo se renderiza aquí -->
@@ -28,8 +30,7 @@
     </main>
 
     <script type="module">
-        import { db } from '../assets/js/firebaseConfig.js';
-        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+        import { supabase } from '../assets/js/supabaseConfig.js';
 
         const contenedor = document.getElementById('articulo-contenedor');
 
@@ -37,31 +38,39 @@
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
-        if (!id) {
-            contenedor.innerHTML = "<p>Artículo no encontrado.</p>";
-        } else {
-            const articuloRef = doc(db, "articulos", id);
+        async function cargarArticulo() {
+            if (!id) {
+                contenedor.innerHTML = "<p>Artículo no encontrado.</p>";
+                return;
+            }
 
-            getDoc(articuloRef).then(snapshot => {
-                if (!snapshot.exists()) {
-                    contenedor.innerHTML = "<p>Artículo no encontrado.</p>";
-                    return;
-                }
+            const { data, error } = await supabase
+                .from('articulos')
+                .select('*')
+                .eq('id', id)
+                .single();
 
-                const data = snapshot.data();
-                contenedor.innerHTML = `
-          <article class="articulo">
-            ${data.imagenURL ? `<img src="${data.imagenURL}" alt="${data.titulo}" class="imagen">` : ""}
-            <h1 class="titulo">${data.titulo}</h1>
-            <p class="categoria">${data.categoria || ""}</p>
-            <div class="contenido">${data.contenido}</div>
-          </article>
-        `;
-            }).catch(err => {
-                console.error(err);
-                contenedor.innerHTML = "<p>Error cargando el artículo.</p>";
-            });
+            if (error || !data) {
+                console.error(error);
+                contenedor.innerHTML = "<p>Artículo no encontrado.</p>";
+                return;
+            }
+
+            // Actualizar título del documento
+            document.title = `${data.titulo} - Sol Argentino TV Noticias`;
+
+            // Renderizar artículo
+            contenedor.innerHTML = `
+                <article class="articulo">
+                    ${data.imagen_url ? `<img src="${data.imagen_url}" alt="${data.titulo}" class="imagen">` : ""}
+                    <h1 class="titulo">${data.titulo}</h1>
+                    <p class="categoria">${data.categoria || ""}</p>
+                    <div class="contenido">${data.contenido}</div>
+                </article>
+            `;
         }
+
+        document.addEventListener('DOMContentLoaded', cargarArticulo);
     </script>
 </body>
 

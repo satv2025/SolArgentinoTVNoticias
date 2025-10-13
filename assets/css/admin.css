@@ -1,0 +1,143 @@
+/* admin.css — Panel de administración responsive */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #0f1720;
+    --muted: #6b7280;
+    --accent: #0366d6;
+    --radius: 10px;
+    --container-max: 1200px;
+}
+
+* {
+    font-family: "Be Vietnam Pro";
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    width: 94%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+/* Header */
+.site-header {
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 100;
+    padding: 0.5rem 0;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.site-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-outline {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+}
+
+/* Formulario */
+.articulo {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(15, 15, 15, 0.04);
+    margin-bottom: 1rem;
+}
+
+.articulo label {
+    display: block;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.articulo input[type="text"],
+.articulo textarea,
+.articulo input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.articulo button {
+    margin-top: 1rem;
+}
+
+/* Lista de artículos */
+.article-layout {
+    display: grid;
+    gap: 1rem;
+}
+
+.article-item {
+    background: var(--soft, #f8f9fa);
+    padding: 0.85rem;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.article-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.article-item .article-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.article-item .article-categoria {
+    font-size: 0.85rem;
+    color: var(--accent);
+}

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Sol Argentino TV Noticias</title>
-    <link rel="stylesheet" href="assets/css/homeandgeneral.css">
-    <link rel="stylesheet" href="assets/css/individualhtmls.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 
 <body>
@@ -24,7 +23,7 @@
     </header>
 
     <main class="container">
-        <!-- Crear artículo -->
+        <!-- Formulario para crear artículo -->
         <section class="articulo">
             <h2 class="titulo">Crear nuevo artículo</h2>
             <form id="form-articulo">
@@ -48,34 +47,12 @@
         <section class="articulo" style="margin-top:2rem;">
             <h2 class="titulo">Lista de artículos</h2>
             <div id="lista-articulos" class="article-layout">
-                <!-- Los artículos se listarán aquí dinámicamente -->
+                <!-- Aquí se generarán dinámicamente los artículos -->
             </div>
         </section>
     </main>
 
-    <script type="module">
-        import { crearArticulo, logout, initList } from './assets/js/admin.js';
-
-        // Enviar formulario
-        const form = document.getElementById("form-articulo");
-        form.addEventListener("submit", e => {
-            e.preventDefault();
-            const titulo = form.titulo.value;
-            const contenido = form.contenido.value;
-            const categoria = form.categoria.value;
-            const file = form.imagen.files[0];
-            crearArticulo(titulo, contenido, categoria, file);
-            form.reset();
-        });
-
-        // Logout
-        document.getElementById("btn-logout").addEventListener("click", logout);
-
-        // Inicializar lista al cargar
-        document.addEventListener("DOMContentLoaded", () => {
-            initList();
-        });
-    </script>
+    <script type="module" src="assets/js/admin.js"></script>
 </body>
 
 </html>

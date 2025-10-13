@@ -331,7 +331,7 @@ body {
 /* Desktop grid for news */
 @media (min-width: 1000px) {
     .news-list {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(941px, 1fr));
     }
 
     .news-thumb {

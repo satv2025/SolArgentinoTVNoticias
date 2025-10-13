@@ -48,6 +48,11 @@ body {
     border-radius: var(--radius);
     padding: 1rem;
     box-shadow: 0 8px 28px rgba(15, 15, 15, 0.04);
+
+    /* Centrado por defecto (mobile) */
+    margin: 0 auto;
+    position: static;
+    left: 0;
 }
 
 /* Títulos y metadatos */
@@ -147,6 +152,16 @@ body {
 
     .articulo {
         padding: 1.25rem;
+    }
+}
+
+/* Desktop large screens: desplazar artículo horizontalmente */
+@media (min-width:1000px) {
+    .articulo {
+        position: relative;
+        left: 18%;
+        margin: 0;
+        /* eliminar auto para que left funcione */
     }
 }
 
