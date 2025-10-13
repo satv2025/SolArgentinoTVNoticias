@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Noticia - Sol Argentino TV Noticias</title>
+    <link rel="stylesheet" href="../assets/css/homeandgeneral.css" />
+    <link rel="stylesheet" href="../assets/css/individualhtmls.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <a href="../index.html"><img src="../assets/images/placeholder.jpg" alt="logo" class="logo"></a>
+                <a href="../index.html" class="site-title">Sol Argentino TV Noticias</a>
+            </div>
+
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <a href="#" class="nav-link">Política</a>
+                <a href="#" class="nav-link">Deportes</a>
+                <a href="#" class="nav-link">Economía</a>
+            </nav>
+
+            <div class="actions">
+                <a href="../login.html" class="btn-outline">Admin</a>
+            </div>
+        </div>
+
+        <div class="mobile-nav-overlay hidden" aria-hidden="true"></div>
+        <nav class="mobile-nav hidden" aria-hidden="true">
+            <a href="../index.html">Inicio</a>
+            <a href="#">Política</a>
+            <a href="#">Deportes</a>
+            <a href="#">Economía</a>
+            <a href="../login.html" class="btn-outline">Admin</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="article-layout">
+            <article class="articulo" id="articulo">
+                <h1 class="titulo" id="titulo">Titular de ejemplo</h1>
+                <p class="fecha" id="fecha">13 Oct 2025</p>
+                <img src="../assets/images/placeholder.jpg" alt="imagen noticia" class="imagen" id="imagen">
+                <section class="contenido" id="contenido">
+                    <p>Este es un contenido de ejemplo que será reemplazado por la carga dinámica (Firebase en pasos
+                        siguientes).</p>
+                    <p>Párrafo adicional de ejemplo para simular cuerpo de la noticia y chequear estilos.</p>
+                </section>
+
+                <div class="share-bar" aria-label="Compartir">
+                    <a class="share-btn" href="#"
+                        onclick="navigator.share && navigator.share({title: document.title, url: location.href}).catch(()=>{}); return false;">Compartir</a>
+                    <a class="share-btn" href="#">Twitter</a>
+                    <a class="share-btn" href="#">Facebook</a>
+                </div>
+
+                <div class="article-footer">
+                    <p>Autor: <strong id="autor">Redacción</strong> · Categoría: <span id="categoria">General</span></p>
+                </div>
+            </article>
+
+            <!-- aside opcional (p. ej. recomendaciones) -->
+            <aside>
+                <div class="card"
+                    style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 6px 18px rgba(15,15,15,0.04);">
+                    <h4>Artículos relacionados</h4>
+                    <ul>
+                        <li><a href="../articulos/index.html?id=020&slug=relacionado-1">Relacionado 1</a></li>
+                        <li><a href="../articulos/index.html?id=021&slug=relacionado-2">Relacionado 2</a></li>
+                        <li><a href="../articulos/index.html?id=022&slug=relacionado-3">Relacionado 3</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year"></span> Sol Argentino TV Noticias. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // footer year
+        document.addEventListener('DOMContentLoaded', () => {
+            const y = new Date().getFullYear();
+            const el = document.getElementById('year');
+            if (el) el.textContent = y;
+
+            // Simulación de carga por query string (reemplaza con Firestore luego)
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id') || '001';
+            const slug = params.get('slug') || 'ejemplo';
+
+            // Demo: ajustar título/imagen/fecha según id (solo para previsualización)
+            const tituloEl = document.getElementById('titulo');
+            const fechaEl = document.getElementById('fecha');
+            const imagenEl = document.getElementById('imagen');
+            const contenidoEl = document.getElementById('contenido');
+
+            tituloEl.textContent = `Noticia ${id} — ${decodeURIComponent(slug.replace(/-/g, ' '))}`;
+            fechaEl.textContent = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+            imagenEl.src = '../assets/images/placeholder.jpg';
+            contenidoEl.innerHTML = `
+        <p>Contenido simulado para la noticia <strong>#${id}</strong>. Aquí irá el HTML real que guardaremos en Firestore desde el admin.</p>
+        <p>Más párrafos, subtítulos y multimedia según la nota.</p>
+      `;
+        });
+    </script>
+</body>
+
+</html>

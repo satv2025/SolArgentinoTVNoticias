@@ -1,0 +1,172 @@
+/* individualhtmls.css — Mobile-first, legibilidad óptima */
+/* Fuente importada vía @import */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #0f1720;
+    --muted: #6b7280;
+    --accent: #0366d6;
+    --radius: 10px;
+    --container-max: 900px;
+    --gutter: 1rem;
+}
+
+/* Reset / tipografía */
+* {
+    font-family: "Be Vietnam Pro";
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Container */
+.container {
+    width: 94%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+/* Card del artículo */
+.articulo {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: 0 8px 28px rgba(15, 15, 15, 0.04);
+}
+
+/* Títulos y metadatos */
+.titulo {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+    line-height: 1.08;
+}
+
+.fecha {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* Imagen destacada */
+.imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    display: block;
+    object-fit: cover;
+}
+
+/* Contenido */
+.contenido {
+    font-size: clamp(0.98rem, 1.8vw, 1.06rem);
+    line-height: 1.85;
+    color: var(--text);
+}
+
+.contenido p {
+    margin-bottom: 1rem;
+}
+
+.contenido h2,
+.contenido h3 {
+    margin: 1.2rem 0 0.6rem;
+    font-weight: 600;
+}
+
+.contenido ul,
+.contenido ol {
+    margin: 0.6rem 0 1rem 1.25rem;
+}
+
+.contenido blockquote {
+    margin: 1rem 0;
+    padding: 0.9rem 1rem;
+    background: #f7fbff;
+    border-left: 4px solid var(--accent);
+    color: #222;
+    border-radius: 6px;
+}
+
+/* Layout article + aside (mobile stacked) */
+.article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.share-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    background: #f3f7ff;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Article footer */
+.article-footer {
+    margin-top: 2rem;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* Tablet and up: two-column layout (content + right aside) */
+@media (min-width:820px) {
+    .article-layout {
+        grid-template-columns: 1fr 300px;
+        align-items: start;
+        gap: 1.5rem;
+    }
+
+    .articulo {
+        padding: 1.25rem;
+    }
+}
+
+/* Large screens: comfortable reading width */
+@media (min-width:1200px) {
+    :root {
+        --container-max: 1100px;
+    }
+
+    .contenido {
+        font-size: 1.06rem;
+        line-height: 1.95;
+    }
+}
+
+/* Focus states */
+a:focus,
+button:focus,
+input:focus {
+    outline: 3px solid rgba(3, 102, 214, 0.12);
+    outline-offset: 2px;
+    border-radius: 6px;
+}

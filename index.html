@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sol Argentino TV Noticias</title>
+    <link rel="stylesheet" href="assets/css/homeandgeneral.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <a href="index.html"><img src="assets/images/placeholder.jpg" alt="logo" class="logo"></a>
+                <a href="index.html" class="site-title">Sol Argentino TV Noticias</a>
+            </div>
+
+            <!-- Nav visible en mobile: fila horizontal scrollable -->
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="#" class="nav-link">Política</a>
+                <a href="#" class="nav-link">Deportes</a>
+                <a href="#" class="nav-link">Economía</a>
+                <a href="#" class="nav-link">Cultura</a>
+                <a href="#" class="nav-link">Contacto</a>
+            </nav>
+
+            <div class="actions">
+                <a href="login.html" class="btn-outline">Admin</a>
+            </div>
+
+            <!-- (opcional) hamburger (hidden por defecto) -->
+            <button class="hamburger hidden" aria-label="Abrir menú" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M3 6h18M3 12h18M3 18h18" stroke="#111" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="mobile-nav-overlay hidden" aria-hidden="true"></div>
+        <nav class="mobile-nav hidden" aria-hidden="true">
+            <a href="index.html">Inicio</a>
+            <a href="#">Política</a>
+            <a href="#">Deportes</a>
+            <a href="#">Economía</a>
+            <a href="login.html" class="btn-outline">Admin</a>
+        </nav>
+    </header>
+
+    <main class="container main-grid">
+        <section class="hero">
+            <article class="hero-card">
+                <img src="assets/images/placeholder.jpg" alt="destacada">
+                <div class="hero-content">
+                    <h2 class="hero-title">Titular destacado del día</h2>
+                    <p class="hero-excerpt">Resumen corto de la noticia destacada para captar la atención del lector.
+                    </p>
+                    <a class="read-more" href="articulos/index.html?id=001&slug=destacado">Leer más</a>
+                </div>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <div class="searchbox">
+                <input id="search" type="search" placeholder="Buscar noticias...">
+            </div>
+
+            <div class="trending">
+                <h3>Lo más leído</h3>
+                <ul>
+                    <li><a href="articulos/index.html?id=010&slug=titular-popular-1">Titular popular 1</a></li>
+                    <li><a href="articulos/index.html?id=011&slug=titular-popular-2">Titular popular 2</a></li>
+                    <li><a href="articulos/index.html?id=012&slug=titular-popular-3">Titular popular 3</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <section class="news-list" aria-live="polite">
+            <!-- Tarjetas de noticias (ejemplos estáticos) -->
+            <article class="news-card">
+                <img src="assets/images/placeholder.jpg" alt="imagen noticia" class="news-thumb">
+                <div class="news-body">
+                    <h4 class="news-title">Noticia 1 — subtítulo breve</h4>
+                    <p class="news-excerpt">Extracto de la noticia para dar contexto y provocar el click.</p>
+                    <div class="meta">
+                        <span class="categoria">Deportes</span>
+                        <span class="fecha">13 Oct 2025</span>
+                        <a href="articulos/index.html?id=002&slug=noticia-1" class="leer">Leer</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <img src="assets/images/placeholder.jpg" alt="imagen noticia" class="news-thumb">
+                <div class="news-body">
+                    <h4 class="news-title">Noticia 2 — subtítulo breve</h4>
+                    <p class="news-excerpt">Extracto de la noticia para dar contexto.</p>
+                    <div class="meta">
+                        <span class="categoria">Política</span>
+                        <span class="fecha">12 Oct 2025</span>
+                        <a href="articulos/index.html?id=003&slug=noticia-2" class="leer">Leer</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Agregar más tarjetas aquí -->
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year"></span> Sol Argentino TV Noticias. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // year footer
+        document.addEventListener('DOMContentLoaded', () => {
+            const y = new Date().getFullYear();
+            const el = document.getElementById('year');
+            if (el) el.textContent = y;
+        });
+    </script>
+</body>
+
+</html>

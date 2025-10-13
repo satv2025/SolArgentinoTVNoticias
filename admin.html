@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin - Sol Argentino TV Noticias</title>
+    <link rel="stylesheet" href="assets/css/homeandgeneral.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <a href="index.html"><img src="assets/images/placeholder.jpg" alt="logo" class="logo"></a>
+                <a href="index.html" class="site-title">Sol Argentino TV Noticias</a>
+            </div>
+            <nav class="main-nav" aria-label="Principal">
+                <a href="index.html" class="nav-link">Inicio</a>
+            </nav>
+            <div class="actions"><a href="login.html" class="btn-outline">Login</a></div>
+        </div>
+    </header>
+
+    <main class="container" style="margin-top:2rem">
+        <div style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 8px 28px rgba(15,15,15,0.04);">
+            <h2>Panel de administración (próximamente)</h2>
+            <p>En el paso 3 vamos a implementar CRUD con Firebase (Auth, Firestore, Storage).</p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year"></span> Sol Argentino TV Noticias.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('year');
+            if (el) el.textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+
+</html>
