@@ -228,10 +228,12 @@ body {
     display: flex;
     gap: 0.9rem;
     align-items: center;
-    background: var(--card);
+    background: #fff;
     padding: 0.75rem;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(15, 15, 15, 0.03);
+    padding-bottom: 0.4em;
+    width: 71em;
 }
 
 .news-thumb {
@@ -335,8 +337,14 @@ body {
     }
 
     .news-thumb {
-        width: 140px;
-        height: 95px;
+        width: 287px;
+        height: 181px;
+        margin-left: -0.69em;
+        margin-top: -1.199em;
+        position: relative;
+        top: 0.448em;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 }
 
