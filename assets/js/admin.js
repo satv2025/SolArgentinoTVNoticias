@@ -24,11 +24,12 @@ export async function initList() {
         const snapshot = await getDocs(articulosCol);
         snapshot.forEach(doc => {
             const data = doc.data();
+            const fechaStr = data.fecha ? data.fecha.toDate().toLocaleDateString() : "Sin fecha"; // ✅ Manejo opcional
             const item = document.createElement("div");
             item.classList.add("articulo-item");
             item.innerHTML = `
                 <h3>${data.titulo}</h3>
-                <p>${data.categoria} - ${data.fecha.toDate().toLocaleDateString()}</p>
+                <p>${data.categoria} - ${fechaStr}</p>
                 <a href="articulos/index.html?id=${doc.id}" target="_blank">Ver</a>
             `;
             listContainer.appendChild(item);
@@ -38,7 +39,7 @@ export async function initList() {
     }
 }
 
-// Función para crear un artículo
+// Función para crear un artículo (opcional: sin fecha)
 export async function crearArticulo(titulo, contenido, categoria, file) {
     try {
         let imagenURL = "";
@@ -53,8 +54,8 @@ export async function crearArticulo(titulo, contenido, categoria, file) {
             titulo,
             contenido,
             categoria,
-            fecha: Timestamp.fromDate(new Date()),
             imagenURL
+            // ✅ No agregamos fecha
         });
 
         alert("Artículo creado!");
