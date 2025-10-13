@@ -4,8 +4,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Login - Sol Argentino TV Noticias</title>
+    <title>Login - Admin</title>
     <link rel="stylesheet" href="assets/css/homeandgeneral.css" />
+    <style>
+        .auth-wrap {
+            max-width: 420px;
+            margin: 2.5rem auto;
+            padding: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-top: 0.6rem;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            padding: 0.6rem 0.9rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #0366d6;
+            color: #fff;
+        }
+
+        .meta {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 0.6rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,46 +55,67 @@
                 <a href="index.html"><img src="assets/images/placeholder.jpg" alt="logo" class="logo"></a>
                 <a href="index.html" class="site-title">Sol Argentino TV Noticias</a>
             </div>
-            <nav class="main-nav" aria-label="Principal">
-                <a href="index.html" class="nav-link">Inicio</a>
-            </nav>
         </div>
     </header>
 
-    <main class="container" style="max-width:480px;margin-top:2rem;">
-        <div style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 8px 20px rgba(15,15,15,0.04);">
+    <main class="container auth-wrap">
+        <div style="background:#fff;padding:1.25rem;border-radius:10px;box-shadow:0 8px 28px rgba(15,15,15,0.04);">
             <h2>Acceso administrador</h2>
-            <p>En el paso 3 conectaremos Firebase Auth. Por ahora este formulario es demo.</p>
             <form id="loginForm">
-                <label>
-                    Email
-                    <input type="email" name="email" required
-                        style="width:100%;padding:0.6rem;margin-top:0.4rem;border-radius:8px;border:1px solid #eaeaea;">
-                </label>
-                <label style="display:block;margin-top:0.75rem;">
-                    Contraseña
-                    <input type="password" name="password" required
-                        style="width:100%;padding:0.6rem;margin-top:0.4rem;border-radius:8px;border:1px solid #eaeaea;">
-                </label>
-                <button type="submit"
-                    style="margin-top:1rem;padding:0.6rem 1rem;border-radius:8px;background:#0366d6;color:#fff;border:none;font-weight:600;">Entrar</button>
+                <label>Email</label>
+                <input id="email" type="email" required />
+                <label>Contraseña</label>
+                <input id="password" type="password" required />
+                <button id="btnLogin" class="btn btn-primary" type="submit">Entrar</button>
+                <button id="btnSignup" type="button" class="btn btn-ghost" style="margin-left:0.6rem">Crear
+                    cuenta</button>
+                <p class="meta">Si no querés signups públicos, no uses el botón "Crear cuenta".</p>
             </form>
+            <div id="msg" style="margin-top:0.6rem;color:#c00"></div>
         </div>
     </main>
 
     <footer class="site-footer">
         <div class="container">
-            <p>© <span id="year"></span> Sol Argentino TV Noticias.</p>
+            <p>© <span id="year"></span> Sol Argentino TV Noticias</p>
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { auth } from './assets/js/firebaseConfig.js';
+        import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
         document.addEventListener('DOMContentLoaded', () => {
-            const el = document.getElementById('year');
-            if (el) el.textContent = new Date().getFullYear();
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
+            const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            const form = document.getElementById('loginForm');
+            const email = document.getElementById('email');
+            const pass = document.getElementById('password');
+            const msg = document.getElementById('msg');
+            const btnSignup = document.getElementById('btnSignup');
+
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                alert('Demo login — conectaremos Firebase Auth en el paso 3.');
+                msg.textContent = '';
+                try {
+                    await signInWithEmailAndPassword(auth, email.value, pass.value);
+                    window.location.href = 'admin.html';
+                } catch (err) {
+                    console.error(err);
+                    msg.textContent = 'Error: ' + (err.message || err.code);
+                }
+            });
+
+            btnSignup.addEventListener('click', async () => {
+                if (!confirm('Crear cuenta de administrador con las credenciales ingresadas?')) return;
+                try {
+                    await createUserWithEmailAndPassword(auth, email.value, pass.value);
+                    alert('Cuenta creada. Se iniciará sesión automáticamente.');
+                    window.location.href = 'admin.html';
+                } catch (err) {
+                    console.error(err);
+                    msg.textContent = 'Error creando cuenta: ' + (err.message || err.code);
+                }
             });
         });
     </script>
